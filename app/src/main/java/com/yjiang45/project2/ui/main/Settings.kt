@@ -30,7 +30,7 @@ class Settings : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(SettingsViewModel::class.java)
-
+        //transform data to the listener
         if(color==0){
             isPurple.isChecked=true
             isCyan.isChecked=false
@@ -43,9 +43,9 @@ class Settings : Fragment() {
         }
 
 
-        // TODO: Use the ViewModel
+        // Use the ViewModel
         radioGroup.setOnCheckedChangeListener { _, id ->
-             when (id) {
+             when (id) {//use id to change color
                 R.id.isPurple -> {
                     color=0
                     view?.setBackgroundColor(Color.parseColor("#673AB7"))

@@ -38,7 +38,7 @@ class Result : Fragment() {
             val safeArgs = ResultArgs.fromBundle(it)
             myScore = safeArgs.userScore
             opScore = safeArgs.aiScore
-
+            //get the scores and then check whether the users wins or loses
             myscore.setText(myScore.toString())
             opscore.setText(opScore.toString())
             winLose.setText(viewModel.checkScore(opScore,myScore))

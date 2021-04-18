@@ -44,7 +44,7 @@ class Game : Fragment() {
         viewModel.changeColor(view)
 
 
-
+        //check the input to determine how many dices to use
         arguments?.let {
             val safeArgs = GameArgs.fromBundle(it)
             diceUsed = safeArgs.numSelected
@@ -52,6 +52,7 @@ class Game : Fragment() {
         }
         rRDuel()
 
+        //initialize the dices
         reRollBtn.setOnClickListener{
             rolled=0
             startDice(diceUsed)
@@ -63,6 +64,7 @@ class Game : Fragment() {
             rRDuel()
         }
 
+        //set listener for voice playing
         duelBtn.setOnClickListener{
             aiShow()
             if(viewModel.aiScore<=viewModel.score){
@@ -77,7 +79,7 @@ class Game : Fragment() {
         }
     }
 
-    private fun startDice(num:Int){
+    private fun startDice(num:Int){//dice movement for each dices
         when(num){
             1->{
                 myDice1.alpha=0f
@@ -140,7 +142,7 @@ class Game : Fragment() {
         }
     }
 
-    private fun fadeIn(imageView: ImageView){
+    private fun fadeIn(imageView: ImageView){//the fade in animation
         imageView.alpha=0f
         imageView.visibility = View.VISIBLE
         imageView.animate()
@@ -150,7 +152,7 @@ class Game : Fragment() {
         imageView.isEnabled=true
     }
 
-    private fun rollDice(imageView: ImageView){
+    private fun rollDice(imageView: ImageView){//the roll dice animation.
         var currentLocation = imageView.x
         for(i in 0 until 6){
             Handler().postDelayed({
@@ -158,7 +160,7 @@ class Game : Fragment() {
                 val move1=ObjectAnimator.ofFloat(imageView,"x",currentLocation-25)
                 val move2=ObjectAnimator.ofFloat(imageView,"x",currentLocation+25)
                 val back=ObjectAnimator.ofFloat(imageView,"x",currentLocation)
-                if(i==5){
+                if(i==5){//get random dice face
                     set.play(back)
                     imageView.setImageResource(getRandomDice((1..6).random(),1,true))
                 }
@@ -175,7 +177,7 @@ class Game : Fragment() {
         },1200.toLong())
     }
 
-    private fun getRandomDice(rand:Int,ai:Int,add:Boolean):Int{
+    private fun getRandomDice(rand:Int,ai:Int,add:Boolean):Int{//the function that generates random dices
         if(ai==0){
             viewModel.score+=rand
         }
@@ -184,7 +186,7 @@ class Game : Fragment() {
                 viewModel.aiScore += rand
             }
         }
-        when(rand){
+        when(rand){//switch case dices
             1->return R.drawable.dice1
             2->return R.drawable.dice2
             3->return R.drawable.dice3
@@ -195,7 +197,7 @@ class Game : Fragment() {
         return 0
     }
 
-    private fun rRDuel(){
+    private fun rRDuel(){//start the game
         if(rolled==diceUsed){
             reRollBtn.isEnabled=true
             duelBtn.isEnabled=true
@@ -206,7 +208,7 @@ class Game : Fragment() {
         }
     }
 
-    private fun aiShow(){
+    private fun aiShow(){//reveal the random opponent dice result
         when(diceUsed){
             1->aiDice2.setImageResource(getRandomDice((1..6).random(),0,true))
 

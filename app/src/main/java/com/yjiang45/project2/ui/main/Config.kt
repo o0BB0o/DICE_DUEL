@@ -14,7 +14,7 @@ import androidx.navigation.findNavController
 
 import com.yjiang45.project2.R
 
-class Config : Fragment() {
+class Config : Fragment() {//the configuration page
     private lateinit var Recycler: RecyclerView
 
     companion object {
